@@ -7,12 +7,14 @@
 
 enum ItemType {Antidote, PhoenixDownI, PhoenixDownII, PhoenixDownIII, PhoenixDownIV};
 
+#Lam sau
 class BaseItem {
 public:
     virtual bool canUse ( BaseKnight * knight ) = 0;
     virtual void use ( BaseKnight * knight ) = 0;
 };
 
+#Lam sau
 class BaseBag {
 protected:
     BaseKnight * knight;
@@ -23,9 +25,11 @@ public:
     virtual string toString() const;
 };
 
+#Son
 class BaseOpponent;
 
 enum KnightType { PALADIN = 0, LANCELOT, DRAGON, NORMAL };
+#Linh
 class BaseKnight {
 protected:
     int id;
@@ -41,24 +45,34 @@ public:
     static BaseKnight * create(int id, int maxhp, int level, int gil, int antidote, int phoenixdownI);
     string toString() const;
 };
+
+#Linh
 class PaladinKnight :: public BaseKnight{
 protected:
     knightBaseDamage = 0.06
-
+public:
+    fight //
 };
 class LancelotKnight :: public BaseKnight{
 protected:
-    knightBaseDamage = 0.05    
+    knightBaseDamage = 0.05 
+public:
+    fight //   
 };
 class DragonKnight :: public BaseKnight{
 protected:
     knightBaseDamage = 0.075
+public:
+    fight //
 };
 class NormalKnight :: public BaseKnight{
 protected:
+
+public:
+    fight //
     
 };
-
+#Linh
 class ArmyKnights {
 public:
     ArmyKnights (const string & file_armyknights);
@@ -78,13 +92,13 @@ public:
 };
 
 
-
+#Linh
 class Events {
 public:
     int count() const;
     int get(int i) const;
 };
-
+#Linh
 class KnightAdventure {
 private:
     ArmyKnights * armyKnights;
