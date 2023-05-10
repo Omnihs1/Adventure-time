@@ -97,8 +97,30 @@ void KnightAdventure::run(){
 void KnightAdventure::printResult(bool result){
 
 }
+/* * * END implementation of class BaseOpponent * * */
+void BaseOpponent::count(Events* events){
+    levelO = 
+}
+virtual void attack(ArmyKnight * ){
+    last_knight = new BaseKnight()
+    last_knight = ArmyKnight.lastKnight();
+    while (last_knight != NULL){
+        while (last_knight->hp > 0){
+            last_knight->hp -= baseDamage*(levelO - last_knight->level)
+        }
+        
+        if (last_knight->hp < 0 || last_knight->hp == 0){
+            if(last_knight->revised == True){
+
+            }
+            else{
+                last_knight = last_knight->next;
+            }
+        }
+    }
+}
+
+/* * * BEGIN implementation of class BaseOpponent * * */
+
 /* * * END implementation of class KnightAdventure * * */
 
-Events::Events(const std::string &tc1_events)
-{
-}
