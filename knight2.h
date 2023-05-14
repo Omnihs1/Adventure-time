@@ -122,7 +122,7 @@ protected:
     bool result = false;
 public:
     // Khoi tao
-    BaseOpponent * create(int baseDamage, int levelO, int event_id, int i)
+    BaseOpponent * create(int baseDamage, int levelO, int event_id)
     // ham lay gia tri i cua event
     virtual void get(Events *);
     // ham tan cong co ban cua quai vat
