@@ -97,21 +97,26 @@ void KnightAdventure::run(){
 void KnightAdventure::printResult(bool result){
 
 }
-/* * * END implementation of class BaseOpponent * * */
-void BaseOpponent::count(Events* events){
-    levelO = 
+/* * * END implementation of class KnightAdventure * * */
+
+/* * * BEGIN implementation of class BaseOpponent * * */
+void BaseOpponent::get(Events* events){
+    levelO = (events.get() + event_id) % 10 + 1
 }
-virtual void attack(ArmyKnight * ){
-    last_knight = new BaseKnight()
+virtual void BaseOpponent::attack(ArmyKnight * ){
+    last_knight = new BaseKnight();
     last_knight = ArmyKnight.lastKnight();
     while (last_knight != NULL){
-        while (last_knight->hp > 0){
+        if(last_knight->level > levelO || last_knight->level == levelO){
+            result = true;
+            break;
+        }
+        else if (last_knight->hp > 0){
             last_knight->hp -= baseDamage*(levelO - last_knight->level)
         }
-        
         if (last_knight->hp < 0 || last_knight->hp == 0){
             if(last_knight->revised == True){
-
+                // last_knight = BaseKnight.revised(last_knight) 
             }
             else{
                 last_knight = last_knight->next;
@@ -119,8 +124,85 @@ virtual void attack(ArmyKnight * ){
         }
     }
 }
+virtual void BaseOpponent::result(ArmyKnight *){
+    if(result == true){
+        last_knight = new BaseKnight();
+        last_knight = ArmyKnight.lastKnight();
+        last_knight->gil += gil;
+    }
+    else{
 
-/* * * BEGIN implementation of class BaseOpponent * * */
+    }
+}
+/* * * END implementation of class BaseOpponent * * */
 
-/* * * END implementation of class KnightAdventure * * */
+/* * * BEGIN implementation of class Tornbery * * */
+void Tornbery::result(ArmyKnight * ) override {
+    last_knight = new BaseKnight();
+    last_knight = ArmyKnight.lastKnight();
+    if(result == false){
+        poisoned = true;
+        // roi do
+        // doc tinh
+        while(last_knight != NULL){
+            last_knight->hp -= 10;
+            if(last_knight->hp < 0){
+                if(last_knight->revised == True){
+                    // last_knight = BaseKnight.revised(last_knight) 
+                }
+                else{
+                    last_knight = last_knight->next;
+                }
+            }
+        }
+    }
+    else{
+        if(last_knight->level == 10){
+        }
+        else{
+            last_knight->level += 1;
+        }
+    }
+}
+/* * * END implementation of class Tornbery * * */
+
+/* * * BEGIN implementation of class Queen of Cards, * * */
+void QueenOfCards::result(ArmyKnights *) override {
+    last_knight = new BaseKnight();
+    last_knight = ArmyKnight.lastKnight();
+    if(result == false){
+        last_knight->gil /= 2;         
+    }
+    else{
+        int i = 1;
+        int gil_temp;
+        while(last_knight->gil < 999 && last_knight != NULL){
+            if(i == 1){
+                last_knight->gil *= 2;
+                if(last_knight->gil > 999){
+                    gil_temp = last_knight->gil - 999;
+                    last_knight = last_knight->next;
+                    i++;
+                }
+                else{
+                    break;
+                }
+            }
+            else{
+                last_knight->gil += gil_temp;
+                if(last_knight->gil > 999){
+                    gil_temp = last_knight->gil - 999;
+                    last_knight = last_knight->next;
+                }
+            }
+        }
+    }
+}
+/* * * END implementation of class Queen of Cards, * * */
+
+
+
+
+
+
 

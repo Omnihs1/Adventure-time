@@ -118,10 +118,16 @@ protected:
     int baseDamage; 
     int levelO;
     int event_id;
+    int i;
+    bool result = false;
 public:
+    // Khoi tao
+    BaseOpponent * create(int baseDamage, int levelO, int event_id, int i)
+    // ham lay gia tri i cua event
+    virtual void get(Events *);
     // ham tan cong co ban cua quai vat
-    void count(Events *);
     virtual void attack(ArmyKnight *);
+    // ham ket qua sau khi danh bai quai vat
     virtual void result(ArmyKnight *);
 
 };
@@ -130,54 +136,71 @@ protected:
     int baseDamage = 10;
     int event_id = 1;   
     int gil = 100;
+    int levelO;
 public:
-    void result(ArmyKnight *) override;
+    // tan cong ke thua
+    // tra ve gil neu knight thang
 };
 class Bandit :: public BaseOpponent{
 protected:
     int baseDamage = 15;
     int event_id = 2;
     int gil = 150;
+    int levelO;
 public:
-    void result(ArmyKnight *) override;
+    // tan cong ke thua
+    // tra ve gil neu knight thang
 };
 class LordLupin :: public BaseOpponent{
 protected:
     int baseDamage = 45;
     int event_id = 3;
     int gil = 450;
+    int levelO;
 public:
-    void result(ArmyKnight *) override;
+    // tan cong ke thua
+    // tra ve gil neu knight thang
 };
 class Elf :: public BaseOpponent{
 protected:
     int baseDamage = 75;
     int event_id = 4;
     int gil = 750;
+    int levelO;
 public:
-    void result(ArmyKnight *) override;
+    // tan cong ke thua
+    // tra ve gil neu knight thang
 };
 class Troll :: public BaseOpponent{
 protected:
     int baseDamage = 95;
     int event_id = 5;
     int gil = 800;
+    int levelO;
 public:
-    void result(ArmyKnight *) override;
+    // tan cong ke thua
+    // tra ve gil neu knight thang
 };
 class Tornbery :: public BaseOpponent{
 protected:
+    int baseDamage = 120;
     int event_id = 6;
+    bool poisoned = false;
 public:
+    void attack(ArmyKnight *);
     void result(ArmyKnight *) override;
 };
 class QueenOfCards :: public BaseOpponent{
+protected:
+    int baseDamage = 150;
+    int event_id = 7;
 public:
+    void attack(ArmyKnight *);
     void result(ArmyKnight *) override;
 };
 class NinaDeRings :: public BaseOpponent{
 public:
-    void shopping(ArmyKnight *) override;
+    void shopping(ArmyKnight *);
 };
 class DurianGarden :: public BaseOpponent{
 public:
