@@ -2,7 +2,7 @@
 #define __KNIGHT2_H__
 
 #include "main.h"
-
+#include <vector>
 // #define DEBUG
 
 enum ItemType {Antidote, PhoenixDownI, PhoenixDownII, PhoenixDownIII, PhoenixDownIV};
@@ -91,7 +91,11 @@ public:
 
 #Linh
 class Events {
+protected:
+    vector<int> events_list;
+    int size;
 public:
+    Events ( const string & file_events);
     int count() const;
     int get(int i) const;
 };
@@ -187,7 +191,6 @@ int:
 public:
     void result(ArmyKnights *);
 }
-
 
 
 #endif // __KNIGHT2_H__

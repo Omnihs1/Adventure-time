@@ -182,7 +182,6 @@ void QueenOfCards::result(ArmyKnights * armyKnight){
             last_knight = last_knight->next;
             last_knight->gil += gil_temp;
         }
-                
     }
     else{
         last_knight->gil /= 2;
@@ -247,7 +246,7 @@ void Hades::result(ArmyKnights * armyKnight) {
         last_knight = armyKnight.lastKnight();
         if(last_knight->level == 10 || (last_knight->knightType == PALADIN && last_knight->level > 8)){
             this->encountered = true;
-            armyKnight.hasPaladinShield();
+            armyKnight.hasPaladinShield() = true;
         }
         else{
             armyKnight.last_knight() = armyKnight.lastKnight()->next;
@@ -290,7 +289,32 @@ void Ultimetica::result(ArmyKnights * armyKnight) {
 }
 /* * * END implementation of class Ultimetica, * * */
 
-
+/* * * BEGIN implementation of class Events, * * */
+Events::Events(const string & file_events){
+    ifstream inputFile(file_events);
+    if (inputFile.is_open()) {
+        string line1, line2;
+        getLine(inputFile, line1);
+        this->size = (int) line1;
+        getLine(inputFile, line2);
+        int value;
+        stringstream ss(line2);
+        while(ss >> value){
+            this->events_list.push_back(value);    
+        }
+        inputFile.close();
+    }
+    else {
+        cout << "Failed to open file: " << file_events << endl;
+    }
+}
+Events::count(){
+    return this->events_list.size();
+}
+Events::get(int i){
+    return this->events_list[i];
+}
+/* * * END implementation of class Events, * * */
 
 
 
