@@ -114,32 +114,24 @@ public:
 #Son
 class BaseOpponent{
 protected:
-    // thuoc tinh quai vat
     int baseDamage; 
     int levelO;
     int event_id;
     int i;
     bool result = false;
 public:
-    // Khoi tao
-    BaseOpponent * create(int baseDamage, int levelO, int event_id)
-    // ham lay gia tri i cua event
-    virtual void get(Events *);
-    // ham tan cong co ban cua quai vat
+    BaseOpponent();
+    ~BaseOpponent();
+    static BaseOpponent * create(int baseDamage, int event_id, int i);
     virtual void attack(ArmyKnight *);
-    // ham ket qua sau khi danh bai quai vat
     virtual void result(ArmyKnight *);
-
 };
 class MadBear :: public BaseOpponent{
 protected:
     int baseDamage = 10;
     int event_id = 1;   
     int gil = 100;
-    int levelO;
 public:
-    // tan cong ke thua
-    // tra ve gil neu knight thang
 };
 class Bandit :: public BaseOpponent{
 protected:
@@ -148,8 +140,6 @@ protected:
     int gil = 150;
     int levelO;
 public:
-    // tan cong ke thua
-    // tra ve gil neu knight thang
 };
 class LordLupin :: public BaseOpponent{
 protected:
@@ -158,8 +148,6 @@ protected:
     int gil = 450;
     int levelO;
 public:
-    // tan cong ke thua
-    // tra ve gil neu knight thang
 };
 class Elf :: public BaseOpponent{
 protected:
@@ -168,8 +156,6 @@ protected:
     int gil = 750;
     int levelO;
 public:
-    // tan cong ke thua
-    // tra ve gil neu knight thang
 };
 class Troll :: public BaseOpponent{
 protected:
@@ -178,8 +164,6 @@ protected:
     int gil = 800;
     int levelO;
 public:
-    // tan cong ke thua
-    // tra ve gil neu knight thang
 };
 class Tornbery :: public BaseOpponent{
 protected:
@@ -187,7 +171,6 @@ protected:
     int event_id = 6;
     bool poisoned = false;
 public:
-    void attack(ArmyKnight *);
     void result(ArmyKnight *) override;
 };
 class QueenOfCards :: public BaseOpponent{
@@ -195,22 +178,21 @@ protected:
     int baseDamage = 150;
     int event_id = 7;
 public:
-    void attack(ArmyKnight *);
     void result(ArmyKnight *) override;
 };
-class NinaDeRings :: public BaseOpponent{
+class NinaDeRings{
 public:
     void shopping(ArmyKnight *);
 };
-class DurianGarden :: public BaseOpponent{
+class DurianGarden{
 public:
-    void result(ArmyKnight *) override;
+    void result(ArmyKnight *);
 };
-class OmegaWeapon :: public BaseOpponent{
+class OmegaWeapon{
 int:
-    bool static encountered;
+    bool static encountered = false;
 public:
-    void result(ArmyKnight *) override;
+    void result(ArmyKnight *);
 };
 class Hades :: public BaseOpponent{
 int:
