@@ -118,11 +118,11 @@ protected:
     int levelO;
     int event_id;
     int i;
+    int gil;
     bool result = false;
 public:
-    BaseOpponent();
+    BaseOpponent(int baseDamage, int event_id, int i, int gil);
     ~BaseOpponent();
-    static BaseOpponent * create(int baseDamage, int event_id, int i);
     virtual void attack(ArmyKnight *);
     virtual void result(ArmyKnight *);
 };
@@ -132,30 +132,31 @@ protected:
     int event_id = 1;   
     int gil = 100;
 public:
+    MadBear(int i) : BaseOpponent(10, 1, i, 100){}
 };
 class Bandit :: public BaseOpponent{
 protected:
     int baseDamage = 15;
     int event_id = 2;
     int gil = 150;
-    int levelO;
 public:
+    Bandit(int i) : BaseOpponent(15, 2, i, 150){}
 };
 class LordLupin :: public BaseOpponent{
 protected:
     int baseDamage = 45;
     int event_id = 3;
     int gil = 450;
-    int levelO;
 public:
+    LordLupin(int i) : BaseOpponent(45, 3, i, 450){}
 };
 class Elf :: public BaseOpponent{
 protected:
     int baseDamage = 75;
     int event_id = 4;
     int gil = 750;
-    int levelO;
 public:
+    Elf(int i) : BaseOpponent(75, 4, i, 750){}
 };
 class Troll :: public BaseOpponent{
 protected:

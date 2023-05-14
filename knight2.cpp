@@ -100,19 +100,12 @@ void KnightAdventure::printResult(bool result){
 /* * * END implementation of class KnightAdventure * * */
 
 /* * * BEGIN implementation of class BaseOpponent * * */
-BaseOpponent::BaseOpponent() {
-    this->baseDamage = 0;
-    this->levelO = 0;
-    this->event_id = 0;
-    this->i = 0;
-}
-BaseOpponent* BaseOpponent::create(int baseDamage, int event_id, int i){
-    BaseOpponent* opponent = new BaseOpponent();
-    opponent->baseDamage = this->baseDamage;
-    opponent->event_id = this->event_id;
-    opponent->i = this->i;
-    opponent->levelO = (i + event_id) % 10 + 1;
-    return opponent;
+BaseOpponent::BaseOpponent(int baseDamage, int event_id, int i, int gil) {
+    this->baseDamage = baseDamage;
+    this->event_id = event_id;
+    this->i = i;
+    this->levelO = (i + event_id) % 10 + 1;
+    this->gil = gil;
 }
 void BaseOpponent::attack(ArmyKnight * armyKnight){
     if(armyKnight.count() == 0){
