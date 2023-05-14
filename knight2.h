@@ -194,17 +194,19 @@ int:
 public:
     void result(ArmyKnight *);
 };
-class Hades :: public BaseOpponent{
+class Hades{
 int:
-    bool static encountered;
+    bool static encountered = false;
 public:
-    void result(ArmyKnight *) override;
+    void result(ArmyKnight *);
 };
 class Ultimetica{
 int:
     int hp = 5000;
+    bool fight = false;
+    bool result_final = false;
 public:
-    bool result_final(ArmyKnights *);
+    void result(ArmyKnights *);
 }
 
 

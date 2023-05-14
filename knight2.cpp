@@ -225,24 +225,77 @@ void DurianGarden::result(ArmyKnights * armyKnight){
 /* * * END implementation of class DurianGarden, * * */
 
 /* * * BEGIN implementation of class OmegaWeapon, * * */
-void OmegaWeapon::result(ArmyKnights *){
-    BaseKnight* last_knight = new BaseKnight();
-    last_knight = armyKnight.lastKnight();
-    if((last_knight->level == 10 && last_knight->hp == last_knight->maxhp) || (last_knight->knightType == PALADIN)){
-        this->encountered = true;
-        while(last_knight != NULL){
-            last_knight->level = 10;
-            last_knight->gil = 999;
-            last_knight = last_knight->next;
-        }
-    }
+void OmegaWeapon::result(ArmyKnights * armyKnight){
+    if(this->encountered == true){return;}
     else{
-        armyKnight.last_knight() = armyKnight.lastKnight()->next;
+        while(armyKnight.count() > 0){
+            BaseKnight* last_knight = new BaseKnight();
+            last_knight = armyKnight.lastKnight();
+            if((last_knight->level == 10 && last_knight->hp == last_knight->maxhp) || (last_knight->knightType == PALADIN)){
+                this->encountered = true;
+                while(last_knight != NULL){
+                    last_knight->level = 10;
+                    last_knight->gil = 999;
+                    last_knight = last_knight->next;
+                }
+            }
+            else{
+                armyKnight.last_knight() = armyKnight.lastKnight()->next;
+            }
+        }
     }
 }
 /* * * END implementation of class OmegaWeapon, * * */
 
+/* * * BEGIN implementation of class Hades, * * */
+void Hades::result(ArmyKnights * armyKnight) {
+    while(armyKnight.count() > 0){
+        BaseKnight* last_knight = new BaseKnight();
+        last_knight = armyKnight.lastKnight();
+        if(last_knight->level == 10 || (last_knight->knightType == PALADIN && last_knight->level > 8)){
+            this->encountered = true;
+            armyKnight.hasPaladinShield();
+        }
+        else{
+            armyKnight.last_knight() = armyKnight.lastKnight()->next;
+        }
+    }
+}
+/* * * END implementation of class Hades, * * */
 
+/* * * BEGIN implementation of class Ultimetica, * * */
+void Ultimetica::result(ArmyKnights * armyKnight) {
+    if(armyKnight.hasExcaliburSword() == true ||
+        (armyKnight.hasGuinevereHair() == true &&
+        armyKnight.hasLancelotSpear() == true &&
+        armyKnight.hasPaladinShield() == true)){
+            this->fight = true;
+        while(armyKnight.count() > 0){
+            BaseKnight* last_knight = new BaseKnight();
+            last_knight = armyKnight.lastKnight();
+            if(last_knight->knightType == PALADIN || last_knight->knightType == LANCELOT || 
+                last_knight->knightType == DRAGON){
+                int damage = this->hp * last_knight->level * last_knight->knightBaseDamage;
+                this->hp -= damage;
+                if(this->hp < 0){
+                    this->result_final = true;
+                    return;
+                }
+                else{
+                    last_knight = last_knight->next;
+                }
+            }
+            else{
+                armyKnight.last_knight() = armyKnight.lastKnight()->next;
+            }
+        }
+    }
+    else{
+        this->result_final = false;
+        return;
+    }
+}
+/* * * END implementation of class Ultimetica, * * */
 
 
 
