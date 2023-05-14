@@ -127,58 +127,36 @@ public:
     virtual void result(ArmyKnight *);
 };
 class MadBear :: public BaseOpponent{
-protected:
-    int baseDamage = 10;
-    int event_id = 1;   
-    int gil = 100;
 public:
     MadBear(int i) : BaseOpponent(10, 1, i, 100){}
 };
 class Bandit :: public BaseOpponent{
-protected:
-    int baseDamage = 15;
-    int event_id = 2;
-    int gil = 150;
 public:
     Bandit(int i) : BaseOpponent(15, 2, i, 150){}
 };
 class LordLupin :: public BaseOpponent{
-protected:
-    int baseDamage = 45;
-    int event_id = 3;
-    int gil = 450;
 public:
     LordLupin(int i) : BaseOpponent(45, 3, i, 450){}
 };
 class Elf :: public BaseOpponent{
-protected:
-    int baseDamage = 75;
-    int event_id = 4;
-    int gil = 750;
 public:
     Elf(int i) : BaseOpponent(75, 4, i, 750){}
 };
 class Troll :: public BaseOpponent{
-protected:
-    int baseDamage = 95;
-    int event_id = 5;
-    int gil = 800;
-    int levelO;
 public:
+    Troll(int i) : BaseOpponent(95, 5, i, 800){}
 };
 class Tornbery :: public BaseOpponent{
 protected:
-    int baseDamage = 120;
-    int event_id = 6;
     bool poisoned = false;
 public:
+    Tornbery(int i) : BaseOpponent(120, 6, i, 0){}
     void result(ArmyKnight *) override;
 };
 class QueenOfCards :: public BaseOpponent{
 protected:
-    int baseDamage = 150;
-    int event_id = 7;
 public:
+    QueenOfCards(int i) : BaseOpponent(150, 7, i, 0){}
     void result(ArmyKnight *) override;
 };
 class NinaDeRings{
