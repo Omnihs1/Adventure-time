@@ -25,14 +25,16 @@ string BaseBag::toString() const {
 /* * * END implementation of class BaseBag * * */
 
 /* * * BEGIN implementation of class BaseKnight * * */
-BaseKnight* BaseKnight::create(int id, int maxhp, int level, int gil, int antidote, int phoenixdownI) {
+BaseKnight* BaseKnight::create(int id, int maxhp, int baseDamage, int level, int gil, int antidote, int phoenixdownI) {
     BaseKnight* knight = new BaseKnight();
     knight->id = id;
     knight->hp = maxhp;
     knight->maxhp = maxhp;
+    knight->baseDamage = baseDamage;
     knight->level = level;
     knight->gil = gil;
-    knight->antidote = antidote;
+    knight->bag->antidote = antidote;
+    knight->bag->phoenixdownI = phoenixdownI;
     return knight;
 }
 string BaseKnight::toString() const {
@@ -52,6 +54,45 @@ string BaseKnight::toString() const {
 }
 
 /* * * END implementation of class BaseKnight * * */
+
+
+/* * * BEGIN implementation of class PaladinKnight * * */
+PaladinKnight :: fight(BaseOpponent * opponent){
+    if(opponent->event_id < 6){
+        opponent->result = true;
+        opponent.result(this->army);
+    }
+    else if(opponent->event_id == 7){
+        opponent.attack(this->army);
+        opponent.result(this->army);
+        if(opponent->result == false){
+            this->gil *= 2;
+        }
+    }
+    else if(opponent->event_id == 8){
+        opponent.shopping(this->army);
+    }
+}
+/* * * END implementation of class PaladinKnight * * */
+
+/* * * BEGIN implementation of class LancelotKnight * * */
+LancelotKnight :: fight(BaseOpponent * opponent){
+    if(opponent->event_id < 6){
+        opponent->result = true;
+        opponent.result(this->army);
+    }
+}
+/* * * END implementation of class LancelotKnight * * */
+
+/* * * BEGIN implementation of class DragonKnight * * */
+DragonKnight :: fight(BaseOpponent * opponent){
+    if(opponent->event_id == 6){
+        opponent.attack(this->army);
+        opponent.result(this->army);
+    }
+}
+/* * * END implementation of class DragonKnight * * */
+
 
 /* * * BEGIN implementation of class ArmyKnights * * */
 ArmyKnights ArmyKnights::
@@ -157,13 +198,16 @@ void Tornbery::result(ArmyKnight* armyKnight){
         this->poisoned = true;
         while(last_knight != NULL){
             if(last_knight->antidote > 0) {last_knight.resume(); return;}
-            last_knight->hp -= 10;
-            if(last_knight->hp < 0){
-                if(last_knight.checkInfo() == true){
-                    last_knight.reborn();
-                }
-                else{
-                    last_knight = last_knight->next;
+            if(last_knight->knightType == DRAGON) {return;}
+            else{
+                last_knight->hp -= 10;
+                if(last_knight->hp < 0){
+                    if(last_knight.checkInfo() == true){
+                        last_knight.reborn();
+                    }
+                    else{
+                        last_knight = last_knight->next;
+                    }
                 }
             }
         }
@@ -193,13 +237,18 @@ void QueenOfCards::result(ArmyKnights * armyKnight){
 void NinaDeRings::shopping(ArmyKnights * armyKnight){
     BaseKnight* last_knight = new BaseKnight();
     last_knight = armyKnight.lastKnight();
-    if(last_knight->gil < 50){
-        return; 
+    if(last_knight->knightType == PALADIN){
+        last_knight->hp += last_knight->maxhp / 5;
     }
     else{
-        if(last_knight->hp < (last_knight->maxhp / 3)){
-            last_knight->gil -= 50;
-            last_knight->hp += last_knight->maxhp / 5;
+        if(last_knight->gil < 50){
+            return; 
+        }
+        else{
+            if(last_knight->hp < (last_knight->maxhp / 3)){
+                last_knight->gil -= 50;
+                last_knight->hp += last_knight->maxhp / 5;
+            }
         }
     }
 }
