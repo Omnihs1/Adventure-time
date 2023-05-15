@@ -7,18 +7,15 @@
 
 enum ItemType {Antidote, PhoenixDownI, PhoenixDownII, PhoenixDownIII, PhoenixDownIV};
 
-#Lam sau
 class BaseItem {
 public:
     virtual bool canUse ( BaseKnight * knight ) = 0;
     virtual void use ( BaseKnight * knight ) = 0;
 };
 
-#Lam sau
 class BaseBag {
 protected:
     BaseKnight * knight;
-
 public:
     virtual bool insertFirst(BaseItem * item);
     virtual BaseItem * get(ItemType itemType);
@@ -26,41 +23,50 @@ public:
 };
 
 enum KnightType { PALADIN = 0, LANCELOT, DRAGON, NORMAL };
-#Linh
+
 class BaseKnight {
 protected:
     int id;
     int hp;
     int maxhp;
+    int baseDamage;
     int level;
     int gil;
-    int antidote;
+    ArmyKnights * army;
     BaseBag * bag;
     KnightType knightType;
-
 public:
-    static BaseKnight * create(int id, int maxhp, int level, int gil, int antidote, int phoenixdownI);
+    static BaseKnight * create(int id, int maxhp, int baseDamage, int level, int gil, int antidote, int phoenixdownI);
     string toString() const;
 };
 
 #Linh
 class PaladinKnight :: public BaseKnight{
 protected:
-    knightBaseDamage = 0.06
+    float knightBaseDamage = 0.06;
+    int maxhp = 853;
 public:
-    fight //
+    static PaladinKnight * create(int id, int level, int gil, int antidote, int phoenixdownI)
+            :: BaseKnight * create(id, 853, 0.06, level, gil, antidote, phoenixdownI)
+    void fight(BaseOpponent * opponent);
 };
 class LancelotKnight :: public BaseKnight{
 protected:
-    knightBaseDamage = 0.05 
+    float knightBaseDamage = 0.05;
+    int maxhp = 888;
 public:
-    fight //   
+    static LancelotKnight * create(int id, int level, int gil, int antidote, int phoenixdownI)
+            :: BaseKnight * create(id, 888, 0.05, level, gil, antidote, phoenixdownI)
+    void fight(BaseOpponent * opponent);  
 };
 class DragonKnight :: public BaseKnight{
 protected:
-    knightBaseDamage = 0.075
+    float knightBaseDamage = 0.075;
+    int maxhp = 543;
 public:
-    fight //
+    static DragonKnight * create(int id, int level, int gil, int antidote, int phoenixdownI)
+            :: BaseKnight * create(id, 543, 0.075, level, gil, antidote, phoenixdownI)
+    void fight(BaseOpponent * opponent);
 };
 class NormalKnight :: public BaseKnight{
 protected:
@@ -163,27 +169,31 @@ public:
     QueenOfCards(int i) : BaseOpponent(150, 7, i, 0){}
     void result(ArmyKnight *) override;
 };
-class NinaDeRings{
+class NinaDeRings :: public BaseOpponent{
 public:
+    NinaDeRings(int i) : BaseOpponent(0, 8, i, 0){}
     void shopping(ArmyKnight *);
 };
-class DurianGarden{
+class DurianGarden :: public BaseOpponent{
 public:
+    DurianGarden(int i) : BaseOpponent(0, 9, i, 0){}
     void result(ArmyKnight *);
 };
-class OmegaWeapon{
+class OmegaWeapon :: public BaseOpponent{
 int:
     bool static encountered = false;
 public:
+    OmegaWeapon(int i) : BaseOpponent(0, 10, i, 0){}
     void result(ArmyKnight *);
 };
-class Hades{
+class Hades :: public BaseOpponent{
 int:
     bool static encountered = false;
 public:
+    Hades(int i) : BaseOpponent(0, 11, i, 0){}
     void result(ArmyKnight *);
 };
-class Ultimetica{
+class Ultimetica :: public BaseOpponent{
 int:
     int hp = 5000;
     bool fight = false;
